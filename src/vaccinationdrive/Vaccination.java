@@ -1,6 +1,9 @@
 package vaccinationdrive;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.text.ParseException;
 
 class Vaccination {
     Scanner input2 = new Scanner(System.in);
@@ -19,7 +22,7 @@ class Vaccination {
 
     void mainMenuDriver(Beneficiary obj) {
         vaccinationWhile: while(true) {
-            System.out.println("\n 1. Vaccine today? \n 2. Vaccination History \n 3. Next Vaccination Date \n 4. Get Details \n 5. Exit");
+            System.out.println("\n 1. Vaccine today? \n 2. Vaccination History \n 3. Next Vaccination Date \n 4. Get Details \n 5. Go to next Vaccination Date \n 6.Exit ");
             int vaccinationInput = input2.nextInt();
             switch (vaccinationInput) {
                 case 1: vaccineToday(obj);
@@ -30,12 +33,27 @@ class Vaccination {
                         break;
                 case 4: printReceipt(obj);
                         break;
-                case 5: break vaccinationWhile;
+                case 5: checkJumpDate(obj);
+                        break;
+                case 6: break vaccinationWhile;
                 default:
                     System.out.println("Enter a proper choice number!");
             }
         }
         System.out.println("Returning to main menu . . .");
+    }
+
+    void checkJumpDate(Beneficiary obj) {
+        if(obj.nextVaccinationDate == null) {
+            System.out.println("kindly take your first vaccine first !");
+        } else {
+            if(Driver.todayDate.equals(obj.nextVaccinationDate)) {
+                System.out.println("already in the required date");
+            } else {
+                Driver.goToNextVaccinationDate(obj.nextVaccinationDate);
+                System.out.println("Today's date: " + Driver.todayDate);
+            }
+        }
     }
 
     void printReceipt(Beneficiary obj) {
@@ -48,12 +66,12 @@ class Vaccination {
         System.out.println("City: " + obj.getCity());
         System.out.print("Vaccination Details: ");
         if(obj.completelyVaccinated) {
-            System.out.println("you are fully vaccinated on dates: " + obj.dates[0] + " and " + obj.dates[1]);
+            System.out.println("you are fully vaccinated on dates: " + obj.firstVaccinationDate + " and " + obj.secondVaccinationDate);
         } else {
             if(obj.nextVaccinationDate == null) {
                 System.out.println("You haven't vaccinated yet");
             } else {
-                System.out.println("Your first vaccination date: " + obj.dates[0] + ", and your next vaccination date is: " + obj.nextVaccinationDate);
+                System.out.println("Your first vaccination date: " + obj.firstVaccinationDate + ", and your next vaccination date is: " + obj.nextVaccinationDate);
             }
         }
         System.out.println("\n\n");
@@ -78,9 +96,9 @@ class Vaccination {
             System.out.println("you haven't vaccinated yet");
         } else {
             if(obj.completelyVaccinated) {
-                System.out.println("you are fully vaccinated on dates: " + obj.dates[0] + " and " + obj.dates[1]);
+                System.out.println("you are fully vaccinated on dates: " + obj.firstVaccinationDate + " and " + obj.secondVaccinationDate);
             } else {
-                System.out.println("you have completed your 1st dose on: " + obj.dates[0]);
+                System.out.println("you have completed your 1st dose on: " + obj.firstVaccinationDate);
             }
         }
     }
@@ -92,13 +110,21 @@ class Vaccination {
         }
         else {
             if(obj.nextVaccinationDate == null) {
-                obj.dates[0] = "1";
-                obj.nextVaccinationDate = "30";
+                obj.firstVaccinationDate = Driver.todayDate;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                Calendar cal = Calendar.getInstance();
+                try{
+                    cal.setTime(sdf.parse(obj.firstVaccinationDate));
+                }catch(ParseException e){
+                    e.printStackTrace();
+                }
+                cal.add(Calendar.DAY_OF_MONTH, 84);
+                obj.nextVaccinationDate = sdf.format(cal.getTime());
                 System.out.println("Today is your first vaccination, your next vaccinated date is: " + obj.nextVaccinationDate);
             } else {
                 if(Driver.todayDate.equals(obj.nextVaccinationDate)) {
                     System.out.println("today is your second vaccination, congratulations you have been vaccinated fully!");
-                    obj.dates[1] = Driver.todayDate;
+                    obj.secondVaccinationDate = Driver.todayDate;
                     obj.completelyVaccinated = true;
                 } else {
                     System.out.println("kindly come back at your specified date");

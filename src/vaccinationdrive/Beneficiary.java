@@ -13,7 +13,6 @@ class Beneficiary {
     final private long registerNumber;
     boolean completelyVaccinated = false;
     String firstVaccinationDate, secondVaccinationDate;
-    String[] dates = new String[2];
     String nextVaccinationDate;
 
     Beneficiary() {
