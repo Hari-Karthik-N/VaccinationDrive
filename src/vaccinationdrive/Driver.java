@@ -98,6 +98,10 @@ public class Driver {
                 nonVaccinatedUsers++;
             }
         }
-        System.out.println("Out of " + totalUsers + " user(s) " + nonVaccinatedUsers + " user(s) haven't been vaccinated at all\n");
+        if(nonVaccinatedUsers == 0) {
+            System.out.println("all the users are vaccinated");
+        } else {
+            System.out.println("Out of " + totalUsers + " user(s) " + nonVaccinatedUsers + " user(s) haven't been vaccinated at all\n");
+        }
     }
 }
