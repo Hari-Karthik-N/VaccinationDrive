@@ -21,29 +21,35 @@ class Vaccination {
     }
 
     void mainMenuDriver(Beneficiary obj) {
-        vaccinationWhile: while(true) {
-            System.out.println("\n 1. Vaccine today? \n 2. Vaccination History \n 3. Next Vaccination Date \n 4. Get Details \n 5. Go to next Vaccination Date \n 6.Exit ");
+        while(true) {
+            System.out.println("\n 1. Vaccine today? \n 2. Vaccination History \n 3. Next Vaccination Date \n 4. Get Details \n 5. Go to next Vaccination Date \n 6. Go Back ");
             int vaccinationInput = input2.nextInt();
             switch (vaccinationInput) {
-                case 1: vaccineToday(obj);
-                        break;
-                case 2: vaccinationHistory(obj);
-                        break;
-                case 3: getNextVaccinationDate(obj);
-                        break;
-                case 4: printReceipt(obj);
-                        break;
-                case 5: checkJumpDate(obj);
-                        break;
-                case 6: break vaccinationWhile;
+                case 1:
+                    vaccineToday(obj);
+                    break;
+                case 2:
+                    vaccinationHistory(obj);
+                    break;
+                case 3:
+                    getNextVaccinationDate(obj);
+                    break;
+                case 4:
+                    printReceipt(obj);
+                    break;
+                case 5:
+                    jumpDate(obj);
+                    break;
+                case 6:
+                    System.out.println("Returning to main menu . . .");
+                    return;
                 default:
                     System.out.println("Enter a proper choice number!");
             }
         }
-        System.out.println("Returning to main menu . . .");
     }
 
-    void checkJumpDate(Beneficiary obj) {
+    void jumpDate(Beneficiary obj) {
         if(obj.nextVaccinationDate == null) {
             System.out.println("kindly take your first vaccine first !");
         } else {

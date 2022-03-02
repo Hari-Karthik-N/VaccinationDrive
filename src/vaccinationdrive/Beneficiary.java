@@ -23,7 +23,7 @@ class Beneficiary {
         this.setCity();
         this.registerNumber = Beneficiary.registerNumberGenerator;
         (Beneficiary.registerNumberGenerator)++;
-        System.out.println("your registration number is: " + this.getRegNumber());
+        System.out.println("your registration number is: " + this.getRegNumber() + "\n Successfully Registered !\n");
         Vaccination.registeredUsers.add(this);
     }
 
