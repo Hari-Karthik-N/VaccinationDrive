@@ -13,7 +13,7 @@ public class Driver {
         Scanner input = new Scanner(System.in);
         int choice;
         while(true) {
-            System.out.println("Enter your choice: \n 1. New Account Creation \n 2. Vaccination Details \n 3. History \n 4. Exit");
+            System.out.println("Enter your choice: \n 1. New Account Creation \n 2. Vaccination Details \n 3. Users History \n 4. Exit");
             choice = input.nextInt();
             switch(choice) {
                 case 1:
@@ -41,7 +41,7 @@ public class Driver {
             return;
         }
         while(true) {
-            System.out.println("Enter Choice: \n 1. All Registered Users \n 2. All Vaccinated Users \n 3. Go Back");
+            System.out.println("Enter Choice: \n 1. All Registered Users \n 2. All Vaccinated Users \n 3. Non - Vaccinated Users \n 4. Go Back");
             int historyChoice = getInput.nextInt();
             switch(historyChoice) {
                 case 1:
@@ -51,6 +51,9 @@ public class Driver {
                     getAllVaccinatedUsers(totalUsers);
                     break;
                 case 3:
+                    getAllNonVaccinatedUsers(totalUsers);
+                    break;
+                case 4:
                     System.out.println("Returning to main menu . . .");
                     return;
                 default:
@@ -82,8 +85,19 @@ public class Driver {
         if(vaccinatedUsers == 0) {
             System.out.println("No Vaccinated Users Yet\n");
         } else {
-            System.out.println("Out of " + totalUsers + " users " + onlyOnceVaccinatedUsers + " users have been vaccinated only once\n");
+            System.out.println("Out of " + totalUsers + " users " + onlyOnceVaccinatedUsers + " users have been vaccinated only for the first time\n");
             System.out.println("Out of " + totalUsers + " users " + completelyVaccinatedUsers + " users have been vaccinated completely\n");
         }
+    }
+
+    void getAllNonVaccinatedUsers(int totalUsers) {
+        int nonVaccinatedUsers = 0;
+        for(Beneficiary obj : Vaccination.registeredUsers) {
+            if(obj.nextVaccinationDate == null) {
+                System.out.println("Name: " + obj.getName() + " \nRegister Number: " + obj.getRegNumber() + "\nyou haven't vaccinated yet");
+                nonVaccinatedUsers++;
+            }
+        }
+        System.out.println("Out of " + totalUsers + " users " + nonVaccinatedUsers + " users haven't been vaccinated at all\n");
     }
 }

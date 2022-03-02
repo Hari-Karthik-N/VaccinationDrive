@@ -16,7 +16,7 @@ class Vaccination {
         if(isAlreadyRegistered(rNumber)) {
             this.mainMenuDriver(Vaccination.registeredUsers.get(this.accountIndex));
         } else {
-            System.out.println("kindly register");
+            System.out.println("kindly register or enter the correct register number");
         }
     }
 
