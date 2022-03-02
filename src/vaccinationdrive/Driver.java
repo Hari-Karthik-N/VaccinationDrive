@@ -66,7 +66,7 @@ public class Driver {
         for(Beneficiary obj : Vaccination.registeredUsers) {
             System.out.println("Name: " + obj.getName() + " \nRegister Number: " + obj.getRegNumber() + "\n");
         }
-        System.out.println("Total Number of registered Users: " + totalUsers + "\n");
+        System.out.println("Total Number of registered User(s): " + totalUsers + "\n");
     }
 
     void getAllVaccinatedUsers(int totalUsers) {
@@ -85,8 +85,8 @@ public class Driver {
         if(vaccinatedUsers == 0) {
             System.out.println("No Vaccinated Users Yet\n");
         } else {
-            System.out.println("Out of " + totalUsers + " users " + onlyOnceVaccinatedUsers + " users have been vaccinated only for the first time\n");
-            System.out.println("Out of " + totalUsers + " users " + completelyVaccinatedUsers + " users have been vaccinated completely\n");
+            System.out.println("Out of " + totalUsers + " user(s) " + onlyOnceVaccinatedUsers + " user(s) have been vaccinated only for the first time\n");
+            System.out.println("Out of " + totalUsers + " user(s) " + completelyVaccinatedUsers + " user(s) have been vaccinated completely\n");
         }
     }
 
@@ -98,6 +98,6 @@ public class Driver {
                 nonVaccinatedUsers++;
             }
         }
-        System.out.println("Out of " + totalUsers + " users " + nonVaccinatedUsers + " users haven't been vaccinated at all\n");
+        System.out.println("Out of " + totalUsers + " user(s) " + nonVaccinatedUsers + " user(s) haven't been vaccinated at all\n");
     }
 }
